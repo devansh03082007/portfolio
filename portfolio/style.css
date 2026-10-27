@@ -1,0 +1,1135 @@
+
+/* =========================================
+   1. GLOBAL RESET & DESIGN VARIABLES
+========================================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #f4f8fc;
+  --surface: #ffffff;
+  --surface-soft: #edf3fa;
+  --ink: #0a2540;
+  --muted: #5b6b7c;
+  --accent: #d4af37;
+  --accent-soft: #e6c765;
+  --line: #d9e2ec;
+  --navy: #0f3b6d;
+
+  --shadow-sm: 0 4px 12px rgba(15, 59, 109, 0.07);
+  --shadow-md: 0 10px 30px rgba(15, 59, 109, 0.12);
+  --shadow-lg: 0 18px 45px rgba(15, 59, 109, 0.16);
+
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+
+  --container: 1100px;
+  --transition: 0.25s ease;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  scroll-padding-top: 2rem;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--ink);
+
+  background:
+    radial-gradient(
+      circle at 95% 0%,
+      rgba(212, 175, 55, 0.08),
+      transparent 28rem
+    ),
+    linear-gradient(180deg, #f8fbff 0%, var(--bg) 100%);
+
+  transition:
+    background-color var(--transition),
+    color var(--transition);
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: var(--navy);
+  text-decoration: none;
+  transition:
+    color var(--transition),
+    background-color var(--transition),
+    border-color var(--transition);
+}
+
+a:hover {
+  color: #a78312;
+}
+
+::selection {
+  color: var(--ink);
+  background: rgba(212, 175, 55, 0.3);
+}
+
+
+/* =========================================
+   2. DARK MODE
+   Add the dark-mode class to the body.
+========================================= */
+
+.dark-mode {
+  --bg: #0a192f;
+  --surface: #11243d;
+  --surface-soft: #172c47;
+  --ink: #e8eef7;
+  --muted: #b1bfd1;
+  --line: #2b405b;
+  --navy: #8bbcff;
+  --accent: #e6c765;
+  --accent-soft: #f0d98e;
+
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 18px 45px rgba(0, 0, 0, 0.3);
+
+  color: var(--ink);
+
+  background:
+    radial-gradient(
+      circle at 95% 0%,
+      rgba(212, 175, 55, 0.07),
+      transparent 28rem
+    ),
+    var(--bg);
+}
+
+.dark-mode h1,
+.dark-mode h2,
+.dark-mode h3,
+.dark-mode .projects a {
+  color: var(--ink);
+}
+
+.dark-mode .skills li {
+  background: var(--surface);
+  border-color: var(--line);
+  color: var(--ink);
+}
+
+.dark-mode .skills li:hover {
+  background: var(--accent);
+  color: #0a192f;
+}
+
+.dark-mode .projects li {
+  background: var(--surface);
+  border-color: var(--line);
+  border-left-color: var(--accent);
+}
+
+.dark-mode .projects p,
+.dark-mode .about p,
+.dark-mode .site-footer {
+  color: var(--muted);
+}
+
+.dark-mode #cityInput {
+  background: var(--surface);
+  color: var(--ink);
+  border-color: var(--line);
+}
+
+.dark-mode #cityInput::placeholder {
+  color: var(--muted);
+}
+
+.dark-mode #weatherButton {
+  background: var(--accent);
+  color: #0a192f;
+}
+
+.dark-mode #weatherButton:hover {
+  background: var(--accent-soft);
+}
+
+.dark-mode .site-header {
+  border-bottom-color: var(--accent);
+}
+
+
+/* =========================================
+   3. MAIN LAYOUT
+========================================= */
+
+.site-header,
+main,
+.site-footer {
+  width: min(var(--container), calc(100% - 3rem));
+  margin-inline: auto;
+}
+
+main {
+  min-width: 0;
+}
+
+section {
+  padding: clamp(2.5rem, 6vw, 4.5rem) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+section:last-child {
+  border-bottom: none;
+}
+
+
+/* =========================================
+   4. HEADER & HERO SECTION
+========================================= */
+
+.site-header {
+  position: relative;
+  padding: clamp(3rem, 8vw, 6rem) 0 3.5rem;
+  border-bottom: 2px solid var(--accent);
+}
+
+/* Optional navigation */
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 3.5rem;
+}
+
+.site-nav ul,
+.site-nav .nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-nav a {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.site-nav a:hover {
+  color: #a78312;
+}
+
+/* Hero layout: add class="hero" to the hero container */
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(240px, 0.8fr);
+  align-items: center;
+  gap: clamp(2rem, 6vw, 5rem);
+}
+
+.hero-content {
+  min-width: 0;
+}
+
+.eyebrow {
+  margin: 0 0 0.8rem;
+  color: #9a7812;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 800;
+}
+
+.dark-mode .eyebrow {
+  color: var(--accent);
+}
+
+h1 {
+  margin: 0 0 1.25rem;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+  color: var(--navy);
+  overflow-wrap: anywhere;
+}
+
+.hero-description {
+  max-width: 620px;
+  margin: 0 0 1.75rem;
+  color: var(--muted);
+  font-size: clamp(1rem, 2vw, 1.15rem);
+}
+
+/* Profile image */
+
+.hero-image {
+  position: relative;
+  width: 100%;
+  max-width: 370px;
+  justify-self: end;
+}
+
+.hero-image::before {
+  content: "";
+  position: absolute;
+  inset: 16px -16px -16px 16px;
+  border: 2px solid var(--accent);
+  border-radius: var(--radius-lg);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.profile-image {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: center;
+  border-radius: var(--radius-lg);
+  border: 5px solid var(--surface);
+  box-shadow: var(--shadow-lg);
+  background: var(--surface-soft);
+}
+
+/* Alternative: simple image without a decorative frame */
+
+.profile-image--simple {
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+
+
+/* =========================================
+   5. BUTTONS
+========================================= */
+
+.button,
+.btn,
+#weatherButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 46px;
+  padding: 0.75rem 1.35rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  transition:
+    transform var(--transition),
+    box-shadow var(--transition),
+    background-color var(--transition),
+    color var(--transition);
+}
+
+.button:hover,
+.btn:hover,
+#weatherButton:hover {
+  transform: translateY(-2px);
+}
+
+.button-primary,
+.btn-primary {
+  background: var(--navy);
+  color: #ffffff;
+  box-shadow: var(--shadow-sm);
+}
+
+.button-primary:hover,
+.btn-primary:hover {
+  background: #174d86;
+  color: #ffffff;
+  box-shadow: var(--shadow-md);
+}
+
+.dark-mode .button-primary,
+.dark-mode .btn-primary {
+  background: var(--accent);
+  color: #0a192f;
+}
+
+.dark-mode .button-primary:hover,
+.dark-mode .btn-primary:hover {
+  background: var(--accent-soft);
+  color: #0a192f;
+}
+
+.button-secondary,
+.btn-secondary {
+  background: transparent;
+  color: var(--navy);
+  border-color: var(--line);
+}
+
+.button-secondary:hover,
+.btn-secondary:hover {
+  background: var(--surface);
+  border-color: var(--accent);
+}
+
+.dark-mode .button-secondary,
+.dark-mode .btn-secondary {
+  color: var(--ink);
+  border-color: var(--line);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+}
+
+
+/* =========================================
+   6. HEADINGS & SECTION LABELS
+========================================= */
+
+h2 {
+  margin: 0 0 1.25rem;
+  font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--navy);
+}
+
+h3 {
+  margin: 0 0 0.6rem;
+  font-size: 1.15rem;
+  line-height: 1.35;
+  color: var(--ink);
+}
+
+.section-intro {
+  max-width: 680px;
+  margin: -0.4rem 0 1.75rem;
+  color: var(--muted);
+}
+
+
+/* =========================================
+   7. ABOUT SECTION
+========================================= */
+
+.about p {
+  max-width: 760px;
+  margin: 0 0 1rem;
+  color: var(--muted);
+}
+
+.about p:last-child {
+  margin-bottom: 0;
+}
+
+
+/* =========================================
+   8. SKILLS SECTION
+========================================= */
+
+.skills ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.skills li {
+  padding: 0.55rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--navy);
+  font-size: 0.9rem;
+  font-weight: 600;
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform var(--transition),
+    border-color var(--transition),
+    background-color var(--transition),
+    color var(--transition);
+}
+
+.skills li:hover {
+  background: var(--navy);
+  color: #ffffff;
+  border-color: var(--navy);
+  transform: translateY(-3px);
+}
+
+
+/* =========================================
+   9. PROJECTS SECTION
+========================================= */
+
+.projects ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.projects li {
+  min-width: 0;
+  padding: 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--accent);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform var(--transition),
+    box-shadow var(--transition),
+    border-color var(--transition);
+}
+
+.projects li:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+  border-top-color: var(--navy);
+}
+
+.projects li h3 {
+  margin-bottom: 0.6rem;
+}
+
+.projects p {
+  margin: 0.45rem 0 0.9rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.projects a {
+  display: inline-block;
+  margin-top: 0.35rem;
+  color: var(--navy);
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent);
+}
+
+.projects a:hover,
+.projects a:focus-visible {
+  color: #9a7812;
+  border-bottom-color: currentColor;
+}
+
+/* Optional project thumbnail */
+
+.project-image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin-bottom: 1.1rem;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  background: var(--surface-soft);
+}
+
+
+/* =========================================
+   10. WEATHER WIDGET
+========================================= */
+
+#weather {
+  width: min(100%, 500px);
+  margin: 2.5rem auto;
+  padding: clamp(1.25rem, 4vw, 2rem);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+}
+
+#weather h2 {
+  margin-bottom: 1rem;
+}
+
+#cityInput {
+  width: 100%;
+  min-width: 0;
+  min-height: 46px;
+  padding: 0.7rem 0.9rem;
+  color: var(--ink);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  outline: none;
+  transition:
+    border-color var(--transition),
+    box-shadow var(--transition);
+}
+
+#cityInput:focus {
+  border-color: var(--navy);
+  box-shadow: 0 0 0 3px rgba(15, 59, 109, 0.12);
+}
+
+#weatherButton {
+  margin-top: 0.75rem;
+  background: var(--navy);
+  color: #ffffff;
+}
+
+#weatherButton:hover {
+  background: #174d86;
+}
+
+#weatherResult {
+  margin-top: 1.25rem;
+  overflow-wrap: anywhere;
+  color: var(--muted);
+}
+
+
+/* =========================================
+   11. CONTACT SECTION
+========================================= */
+
+.contact p {
+  color: var(--muted);
+}
+
+.contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+}
+
+.contact-links a {
+  padding: 0.65rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+}
+
+.contact-links a:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+
+/* =========================================
+   12. FOOTER
+========================================= */
+
+.site-footer {
+  padding: 2rem 0 3rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  border-top: 1px solid var(--line);
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+
+/* =========================================
+   13. ACCESSIBILITY & FOCUS
+========================================= */
+
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 3px;
+}
+
+a:focus:not(:focus-visible),
+button:focus:not(:focus-visible) {
+  outline: none;
+}
+
+
+/* =========================================
+   14. TABLET RESPONSIVENESS
+========================================= */
+
+@media (max-width: 800px) {
+  .site-header,
+  main,
+  .site-footer {
+    width: min(100% - 2.5rem, var(--container));
+  }
+
+  .hero {
+    grid-template-columns: minmax(0, 1fr) minmax(190px, 0.7fr);
+    gap: 2rem;
+  }
+
+  .hero-image {
+    max-width: 300px;
+  }
+
+  .projects ul {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .site-nav {
+    margin-bottom: 2.5rem;
+  }
+
+  .site-nav ul,
+  .site-nav .nav-links {
+    gap: 1rem;
+  }
+}
+
+
+/* =========================================
+   15. MOBILE RESPONSIVENESS
+========================================= */
+
+@media (max-width: 600px) {
+  html {
+    scroll-padding-top: 1rem;
+  }
+
+  .site-header,
+  main,
+  .site-footer {
+    width: calc(100% - 2rem);
+  }
+
+  .site-header {
+    padding: 2.5rem 0 2.5rem;
+  }
+
+  .site-nav {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .site-nav ul,
+  .site-nav .nav-links {
+    gap: 0.75rem 1rem;
+  }
+
+  .site-nav a {
+    font-size: 0.9rem;
+  }
+
+  .hero {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.25rem;
+  }
+
+  .hero-image {
+    width: min(80%, 290px);
+    justify-self: center;
+  }
+
+  .hero-image::before {
+    inset: 10px -10px -10px 10px;
+  }
+
+  h1 {
+    font-size: clamp(2.3rem, 10vw, 3.4rem);
+  }
+
+  section {
+    padding: 2.5rem 0;
+  }
+
+  .projects ul {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .projects li {
+    padding: 1.25rem;
+  }
+
+  .hero-actions {
+    align-items: stretch;
+  }
+
+  .hero-actions .button,
+  .hero-actions .btn {
+    flex: 1 1 auto;
+  }
+
+  #weather {
+    margin: 2rem auto;
+  }
+}
+
+
+/* =========================================
+   16. SMALL MOBILE SCREENS
+========================================= */
+
+@media (max-width: 360px) {
+  .site-header,
+  main,
+  .site-footer {
+    width: calc(100% - 1.5rem);
+  }
+
+  .hero-actions {
+    flex-direction: column;
+  }
+
+  .hero-actions .button,
+  .hero-actions .btn {
+    width: 100%;
+  }
+
+  .skills ul {
+    gap: 0.5rem;
+  }
+
+  .skills li {
+    padding: 0.45rem 0.75rem;
+    font-size: 0.85rem;
+  }
+}
+
+
+/* =========================================
+   17. REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Portfolio HTML integration */
+
+.brand {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 7rem;
+  font-weight: 900;
+  letter-spacing: -0.08em;
+  line-height: 1;
+  color: var(--navy);
+}
+
+.brand span {
+  color: var(--accent);
+}
+
+.dark-mode .brand span,
+.dark-mode .highlight {
+  color: var(--accent);
+}
+
+.hero-note {
+  margin: 1.5rem 0 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.section-intro {
+  max-width: 680px;
+  margin-bottom: 1.5rem;
+  color: var(--muted);
+}
+
+/* Responsive project grid */
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  padding: 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--accent);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+
+.project-number {
+  margin-bottom: 1rem;
+  color: #9a7812;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.project-card p {
+  flex-grow: 1;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.project-card a {
+  margin-top: 0.75rem;
+  font-weight: 700;
+}
+
+.dark-mode .project-number {
+  color: var(--accent);
+}
+
+/* Weather panel */
+
+.weather-panel {
+  padding: clamp(1.25rem, 4vw, 2rem);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.weather-panel label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.weather-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.weather-controls #cityInput {
+  flex: 1 1 180px;
+  width: auto;
+  min-width: 0;
+}
+
+.weather-controls #weatherButton {
+  margin-top: 0;
+}
+
+#weatherResult {
+  overflow-wrap: anywhere;
+}
+
+/* Chat section */
+
+#aiChatSection {
+  min-width: 0;
+}
+
+#chatMessages {
+  min-height: 100px;
+  max-height: 350px;
+  overflow-y: auto;
+  overflow-wrap: anywhere;
+  padding: 1rem;
+  margin: 1.25rem 0;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+}
+
+.chat-controls {
+  display: flex;
+  gap: 0.75rem;
+  align-items: stretch;
+}
+
+.chat-controls input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.75rem 1rem;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+}
+
+.chat-controls input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+#sendButton {
+  padding: 0.75rem 1.25rem;
+  color: white;
+  background: var(--navy);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#sendButton:hover {
+  opacity: 0.9;
+}
+
+.dark-mode #sendButton {
+  background: var(--accent);
+  color: #0a192f;
+}
+
+.chat-note {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Fixed theme button */
+
+.theme-toggle {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 100;
+  max-width: calc(100vw - 2rem);
+  padding: 0.7rem 1rem;
+  color: #ffffff;
+  background: var(--navy);
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  box-shadow: var(--shadow-md);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.dark-mode .theme-toggle {
+  color: #0a192f;
+  background: var(--accent);
+}
+
+/* Mobile adjustments */
+
+@media (max-width: 600px) {
+  .project-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .chat-controls {
+    flex-direction: column;
+  }
+
+  .chat-controls input,
+  #sendButton {
+    width: 100%;
+    min-height: 46px;
+  }
+
+  .weather-controls {
+    flex-direction: column;
+  }
+
+  .weather-controls #cityInput,
+  .weather-controls #weatherButton {
+    width: 100%;
+  }
+
+  .theme-toggle {
+    right: 0.65rem;
+    bottom: 0.65rem;
+  }
+}
+a.brand {
+  font-size: 60px !important;
+  font-weight: 900 !important;
+  line-height: 1 !important;
+  display: inline-block !important;
+}
+
+a.brand span {
+  font-size: inherit !important;
+}
+
+.photo-placeholder {
+  width: 100%;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  border: 2px dashed var(--accent);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  color: inherit;
+}
+
+.photo-button {
+  display: inline-block;
+  padding: 12px 24px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #ffffff;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.photo-button:hover {
+  opacity: 0.85;
+}
+
+.profile-image {
+  width: 100%;
+  max-width: 400px;
+  height: 450px;
+  object-fit: cover;
+  border-radius: 20px;
+}
