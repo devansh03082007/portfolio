@@ -7,8 +7,8 @@ A responsive personal portfolio website showcasing my background, technical skil
 
 ## Live Demo
 
-- **Portfolio:** [Add your deployed Vercel URL](https://your-vercel-url.vercel.app)
-- **GitHub Repository:** [Add your repository URL](https://github.com/your-username/your-repository)
+- **Portfolio:** [My deployed Vercel URL](https://portfolio-portfolio-mu-three.vercel.app/)
+- **GitHub Repository:** [My repository URL](https://github.com/devansh03082007)
 
 > Replace the example links above with your real URLs before publishing.
 
